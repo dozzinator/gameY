@@ -5,6 +5,7 @@ from wtforms.validators import ValidationError, DataRequired, Length
 from flask_babel import _, lazy_gettext as _l
 from app.models import User
 
+
 class EditProfileForm(FlaskForm):
     username = StringField(_l('Username'), validators=[DataRequired()])
     about_me = TextAreaField(_l('About me'),
@@ -30,6 +31,7 @@ class PostForm(FlaskForm):
     post = TextAreaField(_l('Say something'), validators=[DataRequired()])
     submit = SubmitField(_l('Submit'))
 
+
 class SearchForm(FlaskForm):
     q = StringField(_l('Search'), validators=[DataRequired()])
 
@@ -39,3 +41,9 @@ class SearchForm(FlaskForm):
         if 'csrf_enabled' not in kwargs:
             kwargs['csrf_enabled'] = False
         super(SearchForm, self).__init__(*args, **kwargs)
+
+
+class MessageForm(FlaskForm):
+    message = TextAreaField(_l('Message'), validators=[
+        DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField(_l('Submit'))
